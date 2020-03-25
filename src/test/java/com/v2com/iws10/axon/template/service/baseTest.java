@@ -13,7 +13,7 @@ public class baseTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/api/base")
+          .when().get("/api/base/hello")
           .then()
              .statusCode(200)
              .body(is("hello"));

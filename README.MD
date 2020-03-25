@@ -69,6 +69,7 @@ mvn io.quarkus:quarkus-maven-plugin:1.2.0.Final:create \
 - Add a `Jenkinsfile`. (copy from this project)
 
 ### Health: (branch feature/Health)
+Add dependency:
 ```
 ./mvnw quarkus:add-extension -Dextensions="health"
 ```
@@ -84,9 +85,26 @@ Check the `/health/ready` endpoint: [http://127.0.0.1:8080/health/ready](http://
 Check the `/health` endpoint: [http://127.0.0.1:8080/health](http://127.0.0.1:8080/health) to get all health information.
 
 And finaly add the unit tests as see in [src/test/java/com/v2com/iws10/axon/template/service/baseTest.java](src/test/java/com/v2com/iws10/axon/template/service/baseTest.java).
-
  
+### Rest Client: (branch feature/RestClient)
+Add dependencies:
+```
+./mvnw quarkus:add-extension -Dextensions="rest-client"
+./mvnw quarkus:add-extension -Dextensions="resteasy-jsonb"
+```
 
+Implement the service interface as see in [src/main/java/com/v2com/iws10/axon/template/service/client/CountriesService.java](src/main/java/com/v2com/iws10/axon/template/service/client/CountriesService.java).
 
+To this case we use the model as see in [src/main/java/com/v2com/iws10/axon/template/service/client/Country.java](src/main/java/com/v2com/iws10/axon/template/service/client/Country.java).
 
+And the resource as see in [src/main/java/com/v2com/iws10/axon/template/service/CountriesResource.java](src/main/java/com/v2com/iws10/axon/template/service/CountriesResource.java);
+
+Define properties url and scope in [src/main/resources/application.properties](src/main/resources/application.properties).
+example:
+```
+country-api/mp-rest/url=https://restcountries.eu/rest
+country-api/mp-rest/scope=javax.inject.Singleton
+```
+
+This will consume the interface in [https://restcountries.eu/rest/v2/name/Brazil](https://restcountries.eu/rest/v2/name/Brazil) and you can see the result produced here [http://localhost:8080/country/name/Brazil](http://localhost:8080/country/name/Brazil).
 
