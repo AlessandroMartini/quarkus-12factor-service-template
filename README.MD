@@ -14,11 +14,11 @@ The Twelve-Factor app is a methodology for apps that use declarative formats, ha
 https://12factor.net/
 
 ## To use
+
 ### Building the application
 
 Launch the Maven build on the checked out sources of this demo:
 ```
-cd service-template\
 ./mvnw install
 ```
 
@@ -32,7 +32,6 @@ You can run your application in dev mode that enables live coding using:
 The Maven Quarkus plugin provides a development mode that supports
 live coding. To try this out:
 ```
-cd service-template\
 ./mvnw quarkus:dev
 ```
 This command will leave Quarkus running in the foreground listening on port 8080.
@@ -41,7 +40,7 @@ This command will leave Quarkus running in the foreground listening on port 8080
     - Make a simple change to [src/main/resources/META-INF/resources/index.html](src/main/resources/META-INF/resources/index.html) file.
     - Refresh the browser to see the updated page.
 2. Visit the `/hello` endpoint: [http://127.0.0.1:8080/hello](http://127.0.0.1:8080/hello)
-    - Update the response in [base.java](base.java). Replace `hello` with `hello there` in the `hello()` method.
+    - Update the response in [src/main/java/com/v2com/iws10/axon/template/service/Base.java](src/main/java/com/v2com/iws10/axon/template/service/Base.java). Replace `hello` with `hello there` in the `hello()` method.
     - Refresh the browser. You should now see `hello there`.
     - Undo the change, so the method returns `hello` again.
     - Refresh the browser. You should now see `hello`.
@@ -58,7 +57,7 @@ Have a look at how fast it boots, or measure the total native memory consumption
 
 ## To create
 
-### A base REST service:
+### A base REST service: (branch feature/BaseRest)
 ```
 mvn io.quarkus:quarkus-maven-plugin:1.2.0.Final:create \
     -DprojectGroupId=com.v2com.iws10.axon.template-service \
@@ -69,6 +68,24 @@ mvn io.quarkus:quarkus-maven-plugin:1.2.0.Final:create \
 - Create and mantain a README.MD.
 - Add a `Jenkinsfile`. (copy from this project)
 
+### Health: (branch feature/Health)
+```
+./mvnw quarkus:add-extension -Dextensions="health"
+```
+
+Add the checkpoints to each resource as see in [src/main/java/com/v2com/iws10/axon/template/service/PingResourceHealthCheck.java](src/main/java/com/v2com/iws10/axon/template/service/PingResourceHealthCheck.java).
+
+Check the `/health/live` endpoint: [http://127.0.0.1:8080/health/live](http://127.0.0.1:8080/health/live) to get liveness status.
+
+Add the checkpoints to each dependency as see in [src/main/java/com/v2com/iws10/axon/template/service/DatabaseConnectionHealthCheck.java](src/main/java/com/v2com/iws10/axon/template/service/DatabaseConnectionHealthCheck.java).
+
+Check the `/health/ready` endpoint: [http://127.0.0.1:8080/health/ready](http://127.0.0.1:8080/health/ready) to get readiness status.
+
+Check the `/health` endpoint: [http://127.0.0.1:8080/health](http://127.0.0.1:8080/health) to get all health information.
+
+And finaly add the unit tests as see in [src/test/java/com/v2com/iws10/axon/template/service/baseTest.java](src/test/java/com/v2com/iws10/axon/template/service/baseTest.java).
+
+ 
 
 
 

@@ -6,11 +6,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/api/base")
-public class base {
+public class Base {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
+    public String Hello() {
         return "hello";
     }
 }
