@@ -108,3 +108,24 @@ country-api/mp-rest/scope=javax.inject.Singleton
 
 This will consume the interface in [https://restcountries.eu/rest/v2/name/Brazil](https://restcountries.eu/rest/v2/name/Brazil) and you can see the result produced here [http://localhost:8080/country/name/Brazil](http://localhost:8080/country/name/Brazil).
 
+### Log: (branch feature/Log)
+Add the log configuration to [src/main/resources/application.properties](src/main/resources/application.properties).
+```
+quarkus.log.console.enable=true
+quarkus.log.console.format=%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n
+quarkus.log.console.level=DEBUG
+quarkus.log.console.color=true
+```
+The log level definition to org.apache.log4j.Level must follow this table:
+
+| Level   | Description  | Use  | Value  |
+|---|---|---|---|
+| ALL  | All levels including custom levels.  | --  | Integer.MAX_VALUE  |
+| TRACE  | Designates finer-grained informational events than the DEBUG.  | Utilizar para apresentar passagens ou inflexões apresentando dados agregados.  | 600 |
+| DEBUG  | Designates fine-grained informational events that are most useful to debug an application.  | Utilizar em todo ponto de inflexão do sistema, *por favor!*  | 500 |
+| INFO  | Designates informational messages that highlight the progress of the application at coarse-grained level.  | Utilizar para registrar a passagem do sistema por um ponto e/ou os valores/status importantes naquele ponto.  | 400 |
+| WARN  | Designates potentially harmful situations.  | *Utilizar sempre* que um try..catch matar o erro não emitindo uma exceção.  | 300 |
+| ERROR  | Designates error events that might still allow the application to continue running.  | *Utilizar sempre* que emitir uma exceção.  | 200 |
+| FATAL  | Designates very severe error events that will presumably lead the application to abort.  | A versão de log4j que utilizamos não suporta este nível.  | 100 |
+| OFF  | The highest possible rank and is intended to turn off logging.  | --  |   0 |
+
