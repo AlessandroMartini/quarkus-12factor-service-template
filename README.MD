@@ -158,4 +158,6 @@ Recipes:
 - Shared Counters
 - Observers
 
+### Configuration: (branch feature/Config)
+Show how to add configuration parameters and how to add default value and configure application.properties
 

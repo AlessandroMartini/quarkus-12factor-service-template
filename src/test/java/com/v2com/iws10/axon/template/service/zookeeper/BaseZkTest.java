@@ -5,10 +5,14 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.RetryNTimes;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.Before;
 
 @QuarkusTest
 public abstract class BaseZkTest {
+
+  @ConfigProperty(name = "zookeeper.address", defaultValue="localhost:2181")
+  String zookeeperAddress;
 
   @Before
   public void setup() {
@@ -18,7 +22,7 @@ public abstract class BaseZkTest {
     int sleepMsBetweenRetries = 100;
     int maxRetries = 30;
     RetryPolicy retryPolicy = new RetryNTimes(maxRetries, sleepMsBetweenRetries);
-    return CuratorFrameworkFactory.newClient("127.0.0.1:2181", retryPolicy);
+    return CuratorFrameworkFactory.newClient(zookeeperAddress, retryPolicy);
   }
 
 }

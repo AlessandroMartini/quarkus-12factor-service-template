@@ -29,7 +29,7 @@ public class Base {
   @Path("/countries/{name}")
   @Produces(MediaType.TEXT_PLAIN)
   public String countries(@PathParam String name) {
-    return countriesService.getByName("Brazil").toString();
+    return countriesService.getByName(name).toString();
   }
 
 }

@@ -11,10 +11,14 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.RetryNTimes;
 import org.apache.curator.x.async.AsyncCuratorFramework;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class ConnectionManagementTest {
+
+  @ConfigProperty(name = "zookeeper.address", defaultValue="localhost:2181")
+  String zookeeperAddress;
 
   @Test
   public void givenRunningZookeeper_whenOpenConnection_thenClientIsOpened()
@@ -25,7 +29,7 @@ public class ConnectionManagementTest {
         sleepMsBetweenRetries);
 
     try (CuratorFramework client = CuratorFrameworkFactory
-        .newClient("127.0.0.1:2181", retryPolicy)) {
+        .newClient(zookeeperAddress, retryPolicy)) {
       client.start();
 
       assertThat(client.checkExists()
@@ -42,7 +46,7 @@ public class ConnectionManagementTest {
         sleepMsBetweenRetries);
 
     try (CuratorFramework client = CuratorFrameworkFactory
-        .newClient("127.0.0.1:2181", retryPolicy)) {
+        .newClient(zookeeperAddress, retryPolicy)) {
       client.start();
       AsyncCuratorFramework async = AsyncCuratorFramework.wrap(client);
 
@@ -65,7 +69,7 @@ public class ConnectionManagementTest {
         sleepMsBetweenRetries);
 
     try (CuratorFramework client = CuratorFrameworkFactory
-        .newClient("127.0.0.1:2181", retryPolicy)) {
+        .newClient(zookeeperAddress, retryPolicy)) {
       client.start();
       AsyncCuratorFramework async = AsyncCuratorFramework.wrap(client);
 
