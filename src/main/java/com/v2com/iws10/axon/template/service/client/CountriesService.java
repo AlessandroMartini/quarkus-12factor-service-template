@@ -1,5 +1,6 @@
 package com.v2com.iws10.axon.template.service.client;
 
+import com.v2com.iws10.axon.template.service.model.Country;
 import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
