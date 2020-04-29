@@ -1,7 +1,7 @@
 package com.v2com.iws10.axon.template.service;
 
 import com.v2com.iws10.axon.template.service.client.CountriesService;
-import com.v2com.iws10.axon.template.service.client.Country;
+import com.v2com.iws10.axon.template.service.model.Country;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.ws.rs.GET;

@@ -144,3 +144,18 @@ import javax.*
 import org.*
 ```
 
+### Zookeeper: (branch feature/Zookeeper)
+Add Apache Curator to manage zookeeper nodes and present some common uses:
+
+Examples:
+- Connection
+- Configuration
+- Typed Models
+
+Recipes:
+- Leader Election
+- Lock Shared Resources
+- Shared Counters
+- Observers
+
+
