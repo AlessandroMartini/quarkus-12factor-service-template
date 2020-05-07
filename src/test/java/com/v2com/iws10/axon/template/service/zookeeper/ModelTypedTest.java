@@ -3,6 +3,8 @@ package com.v2com.iws10.axon.template.service.zookeeper;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
+import javax.inject.Inject;
+
 import com.v2com.iws10.axon.template.service.model.HostConfig;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.curator.framework.CuratorFramework;
@@ -14,7 +16,10 @@ import org.apache.curator.x.async.modeled.ZPath;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class ModelTypedTest extends BaseZkTest {
+public class ModelTypedTest {
+
+  @Inject
+  CuratorFramework client;
 
   @Test
   public void givenPath_whenStoreAModel_thenNodesAreCreated()
@@ -25,7 +30,7 @@ public class ModelTypedTest extends BaseZkTest {
             JacksonModelSerializer.build(HostConfig.class))
         .build();
 
-    try (CuratorFramework client = newClient()) {
+    try {
       client.start();
       AsyncCuratorFramework async = AsyncCuratorFramework.wrap(client);
       ModeledFramework<HostConfig> modeledClient = ModeledFramework
@@ -44,6 +49,8 @@ public class ModelTypedTest extends BaseZkTest {
             }
 
           });
+    } finally {
+      client.close();
     }
 
   }

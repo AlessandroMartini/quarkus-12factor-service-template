@@ -9,19 +9,24 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.inject.Inject;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.x.async.AsyncCuratorFramework;
 import org.junit.jupiter.api.Test;
 
 
 @QuarkusTest
-public class ConfigurationManagementTest extends BaseZkTest {
+public class ConfigurationManagementTest {
 
   private static final String KEY_FORMAT = "/%s";
 
+  @Inject
+  CuratorClientFactory curatorFactory;
+
   @Test
   public void givenPath_whenCreateKey_thenValueIsStored() {
-    try (CuratorFramework client = newClient()) {
+    try (CuratorFramework client = curatorFactory.newClient()) {
       client.start();
       AsyncCuratorFramework async = AsyncCuratorFramework.wrap(client);
       String key = getKey();
@@ -51,8 +56,7 @@ public class ConfigurationManagementTest extends BaseZkTest {
   @Test
   public void givenPath_whenWatchAKeyAndStoreAValue_thenWatcherIsTriggered()
       throws Exception {
-    try (CuratorFramework client = newClient()) {
-      client.start();
+    try (CuratorFramework client = curatorFactory.newStartedClient()) {
       AsyncCuratorFramework async = AsyncCuratorFramework.wrap(client);
       String key = getKey();
       String expected = "my_value";
