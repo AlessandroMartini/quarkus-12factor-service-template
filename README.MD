@@ -160,4 +160,38 @@ Recipes:
 
 ### Configuration: (branch feature/Config)
 Show how to add configuration parameters and how to add default value and configure application.properties
+### WS SOAP:  (branch feature/WsSoap)
 
+### WS Server
+It is assumed that you already have a wsdl file. In this recipe, we will use [employeeservicetopdown](src/main/resources/employeeservicetopdown_server.wsdl). To create server, just run the following command.
+
+```
+$JAVA_HOME/bin/wsimport -s src/main/java/ -p <package.name> <wsdl_path>.wsdl
+```
+
+It will create ObjectFactory, a service endpoint interface and a service provider class. All you need to do is implement interface generated coping its annotations. And publish endpoint as in [EndpointInitializer](src/main/java/com/v2com/iws10/axon/template/service/soap/EndpointInitializer.java).
+
+#### WS Client
+To create WS Client, we use the same command. But note that wsimport will try access url provided in xsd:schema tag. So it is necessary that server is running at import time. Also note that wsdl path can be changed to wsdl URL. 
+
+```
+$JAVA_HOME/bin/wsimport -s src/main/java/ -p <package.name> <wsdl_path>.wsdl
+```
+
+### WS SOAP:  (branch feature/WsSoap)
+
+### WS Server
+It is assumed that you already have a wsdl file. In this recipe, we will use [employeeservicetopdown](src/main/resources/employeeservicetopdown_server.wsdl). To create server, just run the following command.
+
+```
+$JAVA_HOME/bin/wsimport -s src/main/java/ -p <package.name> <wsdl_path>.wsdl
+```
+
+It will create ObjectFactory, a service endpoint interface and a service provider class. All you need to do is implement interface generated coping its annotations. And publish endpoint as in [EndpointInitializer](src/main/java/com/v2com/iws10/axon/template/service/soap/EndpointInitializer.java).
+
+#### WS Client
+To create WS Client, we use the same command. But note that wsimport will try access url provided in xsd:schema tag. So it is necessary that server is running at import time. Also note that wsdl path can be changed to wsdl URL. 
+
+```
+$JAVA_HOME/bin/wsimport -s src/main/java/ -p <package.name> <wsdl_path>.wsdl
+```
